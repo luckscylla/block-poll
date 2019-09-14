@@ -45,22 +45,9 @@
 			</md-list>
 		</md-drawer>
 
-<!-- 		<md-card class="md-layout-item md-size-70 md-small-size-90" style="margin-top:12px;">
-			<md-card-header>
-				<md-card-media md-medium>
-					<a href="http://nav.cx/1kFnBHf">
-						<img src="https://qr-official.line.me/sid/M/832ldgop.png" alt="Photo">
-					</a>
-				</md-card-media>
-				<md-card-header-text style="margin:12px">
-					<div class="md-subheading">打開 line 搜尋 @832ldgop 或掃描 QR Code 加入好友，即可參與投票</div>
-				</md-card-header-text>
-			</md-card-header>
-		</md-card> -->
-
 		<md-content class="md-layout-item md-layout md-alignment-center-left md-size-70 md-small-size-90"
 			style="margin-top:12px;">
-			<div class="md-layout-item md-size-30" >
+			<div class="md-layout-item md-size-40" >
 				<a href="http://nav.cx/1kFnBHf">
 					<img src="https://qr-official.line.me/sid/M/832ldgop.png" style="max-height:180px;">
 				</a>
@@ -68,31 +55,16 @@
 			<div class="md-layout-item">
 				<div class="md-subheading">打開 line 搜尋 @832ldgop 或掃描 QR Code 加入好友，即可參與投票</div>
 			</div>
-			<!-- <div class="md-layout-item md-subheading">打開 line 搜尋 @832ldgop 或掃描 QR Code 加入好友，即可參與投票</div> -->
 		</md-content>
-
-<!-- 		<md-card class="md-layout-item md-size-70 md-small-size-90" style="margin-top:12px;" v-for="(candidate, id) in profile">
-			<md-card-header>
-				<md-card-media md-medium>
-					<img :src="'https://ipfs.globalupload.io/'+candidate['photo']">
-				</md-card-media>
-				<md-card-header-text style="margin:12px">
-					<div class="md-title">{{ candidate['name'] }} / {{ candidate['vote'] }} 票</div>
-					<div class="md-subhead">{{ candidate['info'] }}</div>
-				</md-card-header-text>
-				<md-icon class="md-size-2x md-accent" v-if="id == selected">thumb_up</md-icon>
-			</md-card-header>
-			<md-progress-bar :md-value="candidate['vote']/voteTotal*100" style="margin:8px;height:12px;"></md-progress-bar>
-		</md-card> -->
 
 		<md-card class="md-layout-item md-layout md-alignment-center-left md-size-70 md-small-size-90 md-elevation-3"
 			style="margin-top:12px;" v-for="(candidate, id) in profile">
-			<div class="md-layout-item md-size-30">
+			<div class="md-layout-item md-size-40">
 				<img :src="'https://ipfs.globalupload.io/'+candidate['photo']" style="max-height:180px;">
 			</div>
 			<div class="md-layout-item">
-				<div class="md-title">{{ candidate['name'] }} / {{ candidate['vote'] }} 票</div>
-				<div class="md-subheading">{{ candidate['info'] }}</div>
+				<div class="md-headline">{{ candidate['name'] }} / {{ candidate['vote'] }} 票</div>
+				<div class="md-body-2">{{ candidate['info'] }}</div>
 			</div>
 			<md-icon class="md-size-2x md-accent" v-if="id == selected">thumb_up</md-icon>
 			<div class="md-layout-item md-size-100">
