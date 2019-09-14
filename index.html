@@ -63,8 +63,8 @@
 				<img :src="'https://ipfs.globalupload.io/'+candidate['photo']" style="max-height:180px;">
 			</div>
 			<div class="md-layout-item">
-				<div class="md-headline">{{ candidate['name'] }} / {{ candidate['vote'] }} 票</div>
-				<div class="md-body-2">{{ candidate['info'] }}</div>
+				<div class="md-subheading">{{ candidate['name'] }} / {{ candidate['vote'] }} 票</div>
+				<div class="md-caption">{{ candidate['info'] }}</div>
 			</div>
 			<md-icon class="md-size-2x md-accent" v-if="id == selected">thumb_up</md-icon>
 			<div class="md-layout-item md-size-100">
