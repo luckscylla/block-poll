@@ -15,18 +15,16 @@
 <body>
 <div id="app">
 	<div class="md-layout md-gutter md-alignment-center-space-around">
-		<span class="md-display-1" style="margin-top:12px;">2020 總統大選 - 區塊鍊民調</span>
+		<span class="md-title" style="margin-top:12px;">2020 總統大選 - 區塊鍊民調</span>
 
-		<md-toolbar class="md-primary" style="margin-top:12px;">
-			<span class="md-title">此智能合約運行在 - Rinkeby 測試鍊</span>
-			<div class="md-toolbar-section-end">
-				<md-button class="md-icon-button" @click="showNavigation = true">
-					<md-icon>menu</md-icon>
-				</md-button>
-			</div>
+		<md-toolbar class="md-primary md-dense" style="margin-top:12px;">
+			<md-button class="md-icon-button" @click="showNavigation = true">
+				<md-icon>menu</md-icon>
+			</md-button>
+			<span class="md-subheading">此智能合約運行在 - Rinkeby 測試鍊</span>
 		</md-toolbar>
 
-		<md-drawer class="md-right" :md-active.sync="showNavigation">
+		<md-drawer  :md-active.sync="showNavigation">
 			<md-list class="md-double-line">
 				<md-list-item :href="'https://rinkeby.etherscan.io/address/'+pollAddr">
 					<md-icon class="md-size-2x">how_to_vote</md-icon>
@@ -47,7 +45,7 @@
 			</md-list>
 		</md-drawer>
 
-		<md-card class="md-layout-item md-size-70 md-small-size-90" style="margin-top:20px;">
+		<md-card class="md-layout-item md-size-70 md-small-size-90" style="margin-top:12px;">
 			<md-card-header>
 				<md-card-media md-medium>
 					<a href="http://nav.cx/1kFnBHf">
@@ -60,7 +58,7 @@
 			</md-card-header>
 		</md-card>
 
-		<md-card class="md-layout-item md-size-70 md-small-size-90" style="margin-top:20px;" v-for="(candidate, id) in profile">
+		<md-card class="md-layout-item md-size-70 md-small-size-90" style="margin-top:12px;" v-for="(candidate, id) in profile">
 			<md-card-header>
 				<md-card-media md-medium>
 					<img :src="'https://ipfs.globalupload.io/'+candidate['photo']" alt="Photo">
@@ -71,7 +69,7 @@
 				</md-card-header-text>
 				<md-icon class="md-size-2x md-accent" v-if="id == selected">thumb_up</md-icon>
 			</md-card-header>
-			<md-progress-bar :md-value="candidate['vote']/voteTotal*100" style="margin:12px;height:12px;"></md-progress-bar>
+			<md-progress-bar :md-value="candidate['vote']/voteTotal*100" style="margin:8px;height:12px;"></md-progress-bar>
 		</md-card>
 
 	</div>
