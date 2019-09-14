@@ -9,6 +9,7 @@
 	<style type="text/css">
 		body{ font-family: Arial, "微軟正黑體"; }
 	</style>
+	<title>區塊鍊民調</title>
 </head>
 
 <body>
@@ -48,20 +49,20 @@
 
 		<md-card class="md-layout-item md-size-70 md-small-size-90" style="margin-top:20px;">
 			<md-card-header>
-				<md-card-media md-big>
+				<md-card-media md-medium>
 					<a href="http://nav.cx/1kFnBHf">
 						<img src="https://qr-official.line.me/sid/M/832ldgop.png" alt="Photo">
 					</a>
 				</md-card-media>
 				<md-card-header-text style="margin:12px">
-					<div class="md-title">打開 line 搜尋 @832ldgop 或掃描 QR Code 加入好友，即可參與投票</div>
+					<div class="md-subheading">打開 line 搜尋 @832ldgop 或掃描 QR Code 加入好友，即可參與投票</div>
 				</md-card-header-text>
 			</md-card-header>
 		</md-card>
 
 		<md-card class="md-layout-item md-size-70 md-small-size-90" style="margin-top:20px;" v-for="(candidate, id) in profile">
 			<md-card-header>
-				<md-card-media md-big>
+				<md-card-media md-medium>
 					<img :src="'https://ipfs.globalupload.io/'+candidate['photo']" alt="Photo">
 				</md-card-media>
 				<md-card-header-text style="margin:12px">
