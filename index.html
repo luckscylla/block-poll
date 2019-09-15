@@ -82,12 +82,15 @@
 <script src="src/vue.min.js"></script>
 <script src="src/vue-resource.min.js"></script>
 <script src="src/vue-material.min.js"></script>
+<script src="src/polyfill.min.js"></script>
 <script src="src/web3.min.js"></script>
 <script type="text/javascript" src="contract/PresidentPoll.json"></script>
 <script>
-let urlParams = new URLSearchParams(window.location.search);
 let uid = "0x0"
-if (urlParams.has('uid')) { uid = urlParams.get('uid') }
+if (typeof URLSearchParams === 'function') {
+	let urlParams = new URLSearchParams(window.location.search);
+	if (urlParams.has('uid')) { uid = urlParams.get('uid') }
+}
 
 Vue.use(VueMaterial.default)
 var app = new Vue({
@@ -121,7 +124,7 @@ var app = new Vue({
 		this.pollAddr = "0xB2e4d7Ed2486aAC6E9186D5469206768F9c88fb0"
 		const pollContract = new web3.eth.Contract(this.pollAbi, this.pollAddr, {from: this.userAddr});
 		if (this.login) {
-			web3.eth.getBalance(this.userAddr, (err, balance) => {
+			web3.eth.getBalance(this.userAddr, function(err, balance) {
 				this.balance = (balance/1e18).toFixed(8)
 			})
 		}
@@ -144,22 +147,27 @@ var app = new Vue({
 		// 		// console.log(error)
 		// 	})
 		// }
+
 		// get profile from local to speed up loading
 		this.profile[1] = {name:"蔡英文", info:"民主進步黨 / 現任中華民國總統", photo:"QmbfGX4VsgDdVcBBHC9fuMSHqYFVZsbKVHhTUL7XPYefSu.jpg"}
 		this.profile[2] = {name:"韓國瑜", info:"中國國民黨 / 現任高雄市市長", photo:"QmXA62z4Ku27PEpnDvnbfvbtbsaYrWTR6h1oV343oRVEYM.jpg"}
 		this.profile[3] = {name:"柯文哲", info:"台灣民眾黨 / 現任台北市市長", photo:"QmWZvQNeTyz41RLmkzyyphGvmUTBW2qYm61e6WACD7d5aN.jpg"}
 		this.loading = false
+		let self = this
 		for (let i = 1; i < 4; i++) {
-			pollContract.methods.pollOf(i).call().then( (vote) => {
-				this.voteTotal += Number(vote)
-				this.$set(this.profile[i], 'vote', vote)
-			})
+			pollContract.methods.pollOf(i).call().then( (function(vote) {
+				let j = i;
+				return function(vote) {
+					self.voteTotal += Number(vote)
+					self.$set(self.profile[j], 'vote', vote)
+				}
+			})() );
 		}
 
 		// get user vote
-		pollContract.methods.voteOf(this.userAddr).call().then( (id) => {
+		pollContract.methods.voteOf(self.userAddr).call().then( function(id) {
 			// console.log("id = ", id)
-			this.selected = id
+			self.selected = id
 		})
 
 	}
