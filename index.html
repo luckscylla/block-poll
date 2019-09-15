@@ -49,7 +49,7 @@
 			style="margin-top:12px;">
 			<div class="md-layout-item md-size-40" >
 				<a href="http://nav.cx/1kFnBHf">
-					<img src="https://qr-official.line.me/sid/M/832ldgop.png" style="max-height:180px;">
+					<img src="public/832ldgop.png" style="max-height:180px;">
 				</a>
 			</div>
 			<div class="md-layout-item">
@@ -57,12 +57,14 @@
 			</div>
 		</md-content>
 
-		<md-progress-spinner md-mode="indeterminate" md-diameter="80" v-if="loading"></md-progress-spinner>
+		<md-content class="md-layout-item md-layout md-alignment-center-center md-size-70" v-if="loading">
+			<md-progress-spinner md-mode="indeterminate" md-diameter="80"></md-progress-spinner>
+		</md-content>
 
 		<md-card class="md-layout-item md-layout md-alignment-center-left md-size-70 md-small-size-90 md-elevation-3"
 			style="margin-top:12px;" v-for="(candidate, id) in profile">
 			<div class="md-layout-item md-size-40" style="margin-top:8px;">
-				<img :src="'https://ipfs.globalupload.io/'+candidate['photo']" style="max-height:180px;">
+				<img :src="'public/'+candidate['photo']" style="max-height:180px;">
 			</div>
 			<div class="md-layout-item">
 				<div class="md-subheading">{{ candidate['name'] }} / {{ candidate['vote'] }} 票</div>
@@ -81,10 +83,10 @@
 <script src="src/vue-resource.min.js"></script>
 <script src="src/vue-material.min.js"></script>
 <script src="src/web3.min.js"></script>
-<script type="text/javascript" src="src/PresidentPoll.json"></script>
+<script type="text/javascript" src="contract/PresidentPoll.json"></script>
 <script>
 let urlParams = new URLSearchParams(window.location.search);
-let uid = "0x0000000000000000000000000000000000000000"
+let uid = "0x0"
 if (urlParams.has('uid')) { uid = urlParams.get('uid') }
 
 Vue.use(VueMaterial.default)
@@ -92,7 +94,7 @@ var app = new Vue({
 	el: '#app',
 	data: {
 		userAddr: uid,
-		pollAddr: "0xB2e4d7Ed2486aAC6E9186D5469206768F9c88fb0",
+		pollAddr: "",
 		profile: {},
 		voteTotal: 0,
 		balance: 0,
@@ -104,30 +106,53 @@ var app = new Vue({
 		dummy: ""
 	},
 	created: function() {
-		// get contract
+		// init web3
 		const rpcUrl = 'https://rinkeby.infura.io/11221257d2b1454c875afcc1ad8109a8';
 		const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
-		const pollContract = new web3.eth.Contract(this.pollAbi, this.pollAddr, {from: this.userAddr});
-		web3.eth.getBalance(this.userAddr, (err, balance) => {
-			this.balance = (balance/1e18).toFixed(6)
-		})
 
-		// get profile
+		// set user address
+		if (web3.utils.isAddress(this.userAddr)) {
+			this.login = true
+		} else {
+			this.userAddr = "0x0000000000000000000000000000000000000000"
+		}
+
+		// init contract
+		this.pollAddr = "0xB2e4d7Ed2486aAC6E9186D5469206768F9c88fb0"
+		const pollContract = new web3.eth.Contract(this.pollAbi, this.pollAddr, {from: this.userAddr});
+		if (this.login) {
+			web3.eth.getBalance(this.userAddr, (err, balance) => {
+				this.balance = (balance/1e18).toFixed(8)
+			})
+		}
+
+		// get profile from block-chain
+		// for (let i = 1; i < 4; i++) {
+		// 	pollContract.methods.candidates(i).call().then( (hash) => {
+		// 		// console.log("data-" + i + " = ", hash)
+		// 		return this.$http.get('https://ipfs.globalupload.io/Qm'+hash)
+		// 	}).then( (data) => {
+		// 		// console.log("name-" + i + " = ",  data.body.name)
+		// 		this.loading = false
+		// 		this.$set(this.profile, i, data.body)
+		// 		return pollContract.methods.pollOf(i).call()
+		// 	}).then( (vote) => {
+		// 		// console.log("vote-" + i + " = ",  vote)
+		// 		this.voteTotal += Number(vote)
+		// 		this.$set(this.profile[i], 'vote', vote)
+		// 	}).catch( (error) => {
+		// 		// console.log(error)
+		// 	})
+		// }
+		// get profile from local to speed up loading
+		this.profile[1] = {name:"蔡英文", info:"民主進步黨 / 現任中華民國總統", photo:"QmbfGX4VsgDdVcBBHC9fuMSHqYFVZsbKVHhTUL7XPYefSu.jpg"}
+		this.profile[2] = {name:"韓國瑜", info:"中國國民黨 / 現任高雄市市長", photo:"QmXA62z4Ku27PEpnDvnbfvbtbsaYrWTR6h1oV343oRVEYM.jpg"}
+		this.profile[3] = {name:"柯文哲", info:"台灣民眾黨 / 現任台北市市長", photo:"QmWZvQNeTyz41RLmkzyyphGvmUTBW2qYm61e6WACD7d5aN.jpg"}
+		this.loading = false
 		for (let i = 1; i < 4; i++) {
-			pollContract.methods.candidates(i).call().then( (hash) => {
-				// console.log("data-" + i + " = ", hash)
-				return this.$http.get('https://ipfs.globalupload.io/Qm'+hash)
-			}).then( (data) => {
-				// console.log("name-" + i + " = ",  data.body.name)
-				this.loading = false
-				this.$set(this.profile, i, data.body)
-				return pollContract.methods.pollOf(i).call()
-			}).then( (vote) => {
-				// console.log("vote-" + i + " = ",  vote)
+			pollContract.methods.pollOf(i).call().then( (vote) => {
 				this.voteTotal += Number(vote)
 				this.$set(this.profile[i], 'vote', vote)
-			}).catch( (error) => {
-				// console.log(error)
 			})
 		}
 
@@ -136,12 +161,6 @@ var app = new Vue({
 			// console.log("id = ", id)
 			this.selected = id
 		})
-
-		// set status
-		if (this.userAddr != "0x0000000000000000000000000000000000000000") {
-			console.log("user: " + this.userAddr)
-			this.login = true
-		}
 
 	}
 })
