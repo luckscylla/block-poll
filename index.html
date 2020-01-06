@@ -67,7 +67,7 @@
 				<img :src="'public/'+candidate['photo']" style="max-height:180px;">
 			</div>
 			<div class="md-layout-item">
-				<div class="md-subheading">{{ candidate['name'] }} / {{ candidate['vote'] }} 票</div>
+				<div class="md-subheading">{{ id }} 號 - {{ candidate['name'] }} / {{ candidate['vote'] }} 票</div>
 				<div class="md-caption">{{ candidate['info'] }}</div>
 			</div>
 			<md-icon class="md-size-2x md-accent" v-if="id == selected">thumb_up</md-icon>
@@ -149,9 +149,9 @@ var app = new Vue({
 		// }
 
 		// get profile from local to speed up loading
-		this.profile[1] = {name:"1 宋楚瑜", info:"親民黨 / 現任親民黨主席", photo:"QmUy4Jnx3GEBxJSKJNVyEto5ZaToR1yDcUb49cgvLXPDc7.jpg"}
-		this.profile[2] = {name:"2 韓國瑜", info:"中國國民黨 / 現任高雄市市長", photo:"QmXA62z4Ku27PEpnDvnbfvbtbsaYrWTR6h1oV343oRVEYM.jpg"}
-		this.profile[3] = {name:"3 蔡英文", info:"民主進步黨 / 現任中華民國總統", photo:"QmbfGX4VsgDdVcBBHC9fuMSHqYFVZsbKVHhTUL7XPYefSu.jpg"}
+		this.profile[1] = {name:"宋楚瑜", info:"親民黨 / 現任親民黨主席", photo:"QmUy4Jnx3GEBxJSKJNVyEto5ZaToR1yDcUb49cgvLXPDc7.jpg"}
+		this.profile[2] = {name:"韓國瑜", info:"中國國民黨 / 現任高雄市市長", photo:"QmXA62z4Ku27PEpnDvnbfvbtbsaYrWTR6h1oV343oRVEYM.jpg"}
+		this.profile[3] = {name:"蔡英文", info:"民主進步黨 / 現任中華民國總統", photo:"QmbfGX4VsgDdVcBBHC9fuMSHqYFVZsbKVHhTUL7XPYefSu.jpg"}
 		this.loading = false
 		let self = this
 		for (let i = 1; i < 4; i++) {
