@@ -19,4 +19,4 @@
 而第四個問題，因為發布時間距離大選只剩不到一個禮拜，所以應該沒辦法有機會讓太多人參與，不過我想還是把這個有趣計畫跟大家分享一下，也當做是自己在學習區塊鏈的一個記錄。
 
 ######打開 line 搜尋 @832ldgop 或掃描 QR Code 加入好友，即可參與投票
-[![](https://qr-official.line.me/sid/L/832ldgop.png)](https://qr-official.line.me/sid/L/832ldgop.png)
+[![](https://qr-official.line.me/sid/L/832ldgop.png)](https://qr-official.line.me/sid/L/832ldgop.png "")
