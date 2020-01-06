@@ -120,8 +120,8 @@ var app = new Vue({
 			this.userAddr = "0x0000000000000000000000000000000000000000"
 		}
 
-		// init contract
-		this.pollAddr = "0xB2e4d7Ed2486aAC6E9186D5469206768F9c88fb0"
+		// init poll contract
+		this.pollAddr = "0xFAC7AD9a2f8ee934f1F7A99A7610E088489d5E7b"
 		const pollContract = new web3.eth.Contract(this.pollAbi, this.pollAddr, {from: this.userAddr});
 		if (this.login) {
 			web3.eth.getBalance(this.userAddr, function(err, balance) {
@@ -149,9 +149,9 @@ var app = new Vue({
 		// }
 
 		// get profile from local to speed up loading
-		this.profile[1] = {name:"蔡英文", info:"民主進步黨 / 現任中華民國總統", photo:"QmbfGX4VsgDdVcBBHC9fuMSHqYFVZsbKVHhTUL7XPYefSu.jpg"}
-		this.profile[2] = {name:"韓國瑜", info:"中國國民黨 / 現任高雄市市長", photo:"QmXA62z4Ku27PEpnDvnbfvbtbsaYrWTR6h1oV343oRVEYM.jpg"}
-		this.profile[3] = {name:"柯文哲", info:"台灣民眾黨 / 現任台北市市長", photo:"QmWZvQNeTyz41RLmkzyyphGvmUTBW2qYm61e6WACD7d5aN.jpg"}
+		this.profile[1] = {name:"1 宋楚瑜", info:"親民黨 / 現任親民黨主席", photo:"QmUy4Jnx3GEBxJSKJNVyEto5ZaToR1yDcUb49cgvLXPDc7.jpg"}
+		this.profile[2] = {name:"2 韓國瑜", info:"中國國民黨 / 現任高雄市市長", photo:"QmXA62z4Ku27PEpnDvnbfvbtbsaYrWTR6h1oV343oRVEYM.jpg"}
+		this.profile[3] = {name:"3 蔡英文", info:"民主進步黨 / 現任中華民國總統", photo:"QmbfGX4VsgDdVcBBHC9fuMSHqYFVZsbKVHhTUL7XPYefSu.jpg"}
 		this.loading = false
 		let self = this
 		for (let i = 1; i < 4; i++) {
