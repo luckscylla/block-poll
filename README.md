@@ -22,5 +22,5 @@
 
 ###### https://luckscylla.github.io/block-poll/
 
-###### 打開 line 搜尋 @832ldgop 或掃描 QR Code 加入好友，即可參與投票
+###### 打開 line 搜尋 @832ldgop 或掃描/點擊 QR Code 加入好友，即可參與投票
 [![](./public/832ldgop.png)](http://nav.cx/1kFnBHf)
